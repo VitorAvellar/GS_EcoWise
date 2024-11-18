@@ -31,6 +31,4 @@ class ApiService {
       throw Exception('Erro: $e');
     }
   }
-
-
 }

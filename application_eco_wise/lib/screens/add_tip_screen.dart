@@ -22,7 +22,8 @@ class _AddTipScreenState extends State<AddTipScreen> {
       category: _categoryController.text,
       title: _titleController.text,
       student: _studentController.text,
-      description: _descriptionController.text, id: 8,
+      description: _descriptionController.text,
+      id: 8,
     );
 
     final success = await ApiService.submitTip(tip);

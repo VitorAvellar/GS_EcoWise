@@ -44,11 +44,13 @@ class HomeScreen extends StatelessWidget {
               },
               child: const Text('Cadastrar Dica'),
             ),
+            SizedBox(height: 20), 
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const TipsListScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => const TipsListScreen()),
                 );
               },
               child: const Text('Listar Dicas'),

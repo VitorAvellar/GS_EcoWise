@@ -24,7 +24,6 @@ class _TipsListScreenState extends State<TipsListScreen> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +57,6 @@ class _TipsListScreenState extends State<TipsListScreen> {
                     isThreeLine: true,
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
-                    
                     ),
                     onTap: () {
                       _showTipDetails(context, tip);
