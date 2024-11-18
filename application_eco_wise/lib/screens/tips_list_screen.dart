@@ -24,55 +24,6 @@ class _TipsListScreenState extends State<TipsListScreen> {
     });
   }
 
-  void _updateStudentName(String id) async {
-    final controller = TextEditingController();
-    final success = await showDialog<bool>(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Alterar Nome do Aluno'),
-          content: TextField(
-            controller: controller,
-            decoration: const InputDecoration(
-              labelText: 'Novo Nome',
-              border: OutlineInputBorder(),
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context, false),
-              child: const Text('Cancelar'),
-            ),
-            TextButton(
-              onPressed: () async {
-                final newName = controller.text.trim();
-                if (newName.isNotEmpty) {
-                  final result = await ApiService.updateStudentName(id, newName);
-                  Navigator.pop(context, result);
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Nome não pode ser vazio!')),
-                  );
-                }
-              },
-              child: const Text('Salvar'),
-            ),
-          ],
-        );
-      },
-    );
-
-    if (success == true) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Nome atualizado com sucesso!')),
-      );
-      _loadTips();
-    } else if (success == false) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Erro ao atualizar o nome.')),
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,16 +58,7 @@ class _TipsListScreenState extends State<TipsListScreen> {
                     isThreeLine: true,
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.edit, color: Colors.blue),
-                          onPressed: () => _updateStudentName(tip.id.toString()),
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.delete, color: Colors.red),
-                          onPressed: () => _confirmDelete(context, tip.id as String),
-                        ),
-                      ],
+                    
                     ),
                     onTap: () {
                       _showTipDetails(context, tip);
@@ -129,45 +71,6 @@ class _TipsListScreenState extends State<TipsListScreen> {
         },
       ),
     );
-  }
-
-  void _confirmDelete(BuildContext context, String id) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Excluir Dica'),
-          content: const Text('Tem certeza que deseja excluir esta dica?'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('Cancelar'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                _deleteTip(id);
-              },
-              child: const Text('Excluir'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void _deleteTip(String id) async {
-    final success = await ApiService.deleteTip(id);
-    if (success) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Dica excluída com sucesso!')),
-      );
-      _loadTips();
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Erro ao excluir a dica.')),
-      );
-    }
   }
 
   void _showTipDetails(BuildContext context, Tip tip) {

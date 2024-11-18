@@ -1,5 +1,5 @@
 class Tip {
-  final int id; // Alterado para dynamic ou int
+  final int id;
   final String category;
   final String title;
   final String student;
@@ -15,7 +15,7 @@ class Tip {
 
   factory Tip.fromJson(Map<String, dynamic> json) {
     return Tip(
-      id: json['id'], // Aceita números inteiros
+      id: json['id'],
       category: json['category'],
       title: json['title'],
       student: json['student'],

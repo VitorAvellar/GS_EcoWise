@@ -25,35 +25,12 @@ class ApiService {
         final List<dynamic> data = jsonDecode(response.body);
         return data.map((json) => Tip.fromJson(json)).toList();
       } else {
-        throw Exception('Falha ao carregar as dicas');
+        throw Exception('Dicas enviadas com sucesso!!');
       }
     } catch (e) {
       throw Exception('Erro: $e');
     }
   }
-
-static Future<bool> deleteTip(dynamic id) async {
-  try {
-    final response = await http.delete(Uri.parse('$_baseUrl/$id'));
-    return response.statusCode == 200;
-  } catch (e) {
-    return false;
-  }
-}
-
-static Future<bool> updateStudentName(String id, String newStudentName) async {
-  try {
-    final response = await http.put(
-      Uri.parse('$_baseUrl/$id'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({'student': newStudentName}),
-    );
-    return response.statusCode == 200;
-  } catch (e) {
-    return false;
-  }
-}
-
 
 
 }
